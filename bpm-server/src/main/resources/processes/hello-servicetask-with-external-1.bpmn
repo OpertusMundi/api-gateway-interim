@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1ueqgfk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <bpmn:process id="Process_Hello_ServiceTask_External_1" name="Hello ServiceTask - External - 1" isExecutable="true" camunda:versionTag="0.0.1">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1ye7rh0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0rfddlv">
+      <bpmn:incoming>Flow_0m1w9w8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1q4v1as" sourceRef="Activity_1g1417l" targetRef="Activity_1ysl046" />
+    <bpmn:sequenceFlow id="Flow_1ye7rh0" sourceRef="StartEvent_1" targetRef="Activity_1g1417l" />
+    <bpmn:serviceTask id="Activity_1g1417l" name="Foo" camunda:type="external" camunda:topic="foo">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="foo1">Foo1</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ye7rh0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1q4v1as</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_1ysl046" name="Close ticket" camunda:candidateGroups="moderators">
+      <bpmn:incoming>Flow_1q4v1as</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m1w9w8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0m1w9w8" sourceRef="Activity_1ysl046" targetRef="Event_0rfddlv" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Hello_ServiceTask_External_1">
+      <bpmndi:BPMNEdge id="Flow_0m1w9w8_di" bpmnElement="Flow_0m1w9w8">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="652" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ye7rh0_di" bpmnElement="Flow_1ye7rh0">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="280" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q4v1as_di" bpmnElement="Flow_1q4v1as">
+        <di:waypoint x="380" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rfddlv_di" bpmnElement="Event_0rfddlv">
+        <dc:Bounds x="652" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p3kmm0_di" bpmnElement="Activity_1g1417l">
+        <dc:Bounds x="280" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1o6mnee_di" bpmnElement="Activity_1ysl046">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

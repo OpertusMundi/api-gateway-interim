@@ -1,0 +1,14 @@
+/target
+/logs
+/.secrets
+/secrets
+
+.settings
+.project
+.classpath
+.factorypath
+
+/src/main/resources/config/*.properties
+/src/main/resources/config/*.xml
+/src/main/resources/*.properties
+/src/main/resources/*.xml

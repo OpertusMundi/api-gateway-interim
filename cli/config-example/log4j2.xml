@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    
+    <Properties>
+        <Property name="baseDir">./logs</Property>
+    </Properties>
+    
+    <Appenders>
+        <Console name="console" target="SYSTEM_ERR">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </Console>
+
+        <RollingFile name="file" filename="${baseDir}/cli.log"
+            filepattern="${baseDir}/cli-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="25MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="console" level="WARN"/>
+            <AppenderRef ref="file" />
+        </Root>
+    </Loggers>
+
+</Configuration>
+
