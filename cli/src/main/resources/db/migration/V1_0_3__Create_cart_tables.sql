@@ -1,18 +1,24 @@
-DROP TABLE IF EXISTS public.cart_item;
-DROP TABLE IF EXISTS public.cart;
+--
+-- Drop existing objects
+--
 
-DROP SEQUENCE IF EXISTS public.cart_item_id_seq;
-DROP SEQUENCE IF EXISTS public.cart_id_seq;
+DROP SCHEMA IF EXISTS "order" CASCADE;
+
+--
+-- Order schema
+--
+
+CREATE SCHEMA IF NOT EXISTS "order"; 
 
 --
 -- Cart
 --
 
-CREATE SEQUENCE public.cart_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
+CREATE SEQUENCE "order".cart_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 
-CREATE TABLE public.cart
+CREATE TABLE "order".cart
 (
-  "id"                              integer                 NOT NULL   DEFAULT nextval('public.cart_id_seq'::regclass),
+  "id"                              integer                 NOT NULL   DEFAULT nextval('order.cart_id_seq'::regclass),
   "key"                             uuid                    NOT NULL,  
   "account"                         integer,
   "total_price"                     numeric(20,6)           NOT NULL,
@@ -32,11 +38,11 @@ CREATE TABLE public.cart
 -- Cart item
 --
 
-CREATE SEQUENCE public.cart_item_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
+CREATE SEQUENCE "order".cart_item_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 
-CREATE TABLE public.cart_item
+CREATE TABLE "order".cart_item
 (
-  "id"              integer                 NOT NULL   DEFAULT nextval('public.cart_item_id_seq'::regclass),
+  "id"              integer                 NOT NULL   DEFAULT nextval('order.cart_item_id_seq'::regclass),
   "key"             uuid                    NOT NULL,  
   "cart"            integer                 NOT NULL,
   "product"         uuid                    NOT NULL,
@@ -45,6 +51,6 @@ CREATE TABLE public.cart_item
   "removed_on"      timestamp,
   CONSTRAINT pk_cart_item PRIMARY KEY (id),
   CONSTRAINT fk_cart_item_cart FOREIGN KEY ("cart")
-      REFERENCES public.cart (id) MATCH SIMPLE
+      REFERENCES "order".cart (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE CASCADE
 );
