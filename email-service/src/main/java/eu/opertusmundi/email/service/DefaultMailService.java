@@ -86,7 +86,7 @@ public class DefaultMailService implements MailService {
     public void send(MessageDto message) {
         if (!this.isMailSystemEnabled) {
             logger.warn(String.format("Send mail request to recipient [%s] has failed. Mail system is disabled.",
-                            StringUtils.join(message.getRecipients(), ',')));
+                                      StringUtils.join(message.getRecipients(), ',')));
 
             return;
         }
@@ -100,6 +100,7 @@ public class DefaultMailService implements MailService {
             final MimeMessage mimeMessage = this.createMimeMessage(message);
 
             this.logMessage(mimeMessage);
+
             this.mailSender.send(mimeMessage);
         } catch (final ApplicationException appEx) {
             throw appEx;
@@ -114,6 +115,9 @@ public class DefaultMailService implements MailService {
 
     @Override
     public String render(EnumOutputFormat format, MessageDto message) throws IllegalArgumentException {
+        if (!StringUtils.isBlank(message.getContent())) {
+            return message.getContent();
+        }
         return this.templateEngine.render(format, message);
     }
 
@@ -146,7 +150,7 @@ public class DefaultMailService implements MailService {
             }
         }
 
-        // TODO: Implement template rendering
+        // TODO: Implement TEXT format
         final String htmlContent = this.render(EnumOutputFormat.HTML, message);
 
         mimeMessageHelper.setText(htmlContent, true);

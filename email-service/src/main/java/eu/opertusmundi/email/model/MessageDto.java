@@ -50,6 +50,11 @@ public class MessageDto {
     @Setter
     private JsonNode model;
 
+    @Schema(description = "Mail content. If present, template and model properties are ignored", required = false)
+    @Getter
+    @Setter
+    private String content;
+
     @JsonProperty
     public void setSender(EmailAddressDto sender) {
         this.sender = sender;
