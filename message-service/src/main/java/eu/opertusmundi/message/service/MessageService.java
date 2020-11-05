@@ -3,7 +3,7 @@ package eu.opertusmundi.message.service;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.message.model.MessageCommandDto;
 import eu.opertusmundi.message.model.MessageDto;
 
@@ -19,9 +19,9 @@ public interface MessageService {
      * @param dateTo
      * @param read
      *
-     * @return An instance of {@link QueryResultPage} with items of type {@link MessageDto}
+     * @return An instance of {@link PageResultDto} with items of type {@link MessageDto}
      */
-    QueryResultPage<MessageDto> find(Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read);
+    PageResultDto<MessageDto> find(Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read);
 
     /**
      * Send a new message

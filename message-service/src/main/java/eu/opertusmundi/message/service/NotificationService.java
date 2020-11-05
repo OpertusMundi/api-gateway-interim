@@ -3,7 +3,7 @@ package eu.opertusmundi.message.service;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.message.model.NotificationCommandDto;
 import eu.opertusmundi.message.model.NotificationDto;
 
@@ -19,9 +19,9 @@ public interface NotificationService {
      * @param dateTo
      * @param read
      *
-     * @return An instance of {@link QueryResultPage} with items of type {@link NotificationDto}
+     * @return An instance of {@link PageResultDto} with items of type {@link NotificationDto}
      */
-    QueryResultPage<NotificationDto> find(Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read);
+    PageResultDto<NotificationDto> find(Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read);
 
     /**
      * Send a new notification

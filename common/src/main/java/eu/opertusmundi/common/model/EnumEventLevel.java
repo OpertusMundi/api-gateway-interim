@@ -1,4 +1,4 @@
-package eu.opertusmundi.web.model;
+package eu.opertusmundi.common.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

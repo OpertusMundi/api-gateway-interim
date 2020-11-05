@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.opertusmundi.common.model.BaseResponse;
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.common.model.RestResponse;
 import eu.opertusmundi.message.model.NotificationCommandDto;
 import eu.opertusmundi.message.model.NotificationDto;
@@ -30,7 +30,7 @@ public class NotificationControllerImpl implements NotificationController {
             pageSize = 10;
         }
 
-        final QueryResultPage<NotificationDto> result = this.notificationService.find(pageIndex, pageSize, userKey, dateFrom, dateTo, read);
+        final PageResultDto<NotificationDto> result = this.notificationService.find(pageIndex, pageSize, userKey, dateFrom, dateTo, read);
 
         return RestResponse.result(result);
     }

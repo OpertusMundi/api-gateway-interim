@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.opertusmundi.common.model.BaseResponse;
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.common.model.RestResponse;
 import eu.opertusmundi.message.model.MessageCommandDto;
 import eu.opertusmundi.message.model.MessageDto;
@@ -30,7 +30,7 @@ public class MessageControllerImpl implements MessageController {
             pageSize = 10;
         }
 
-        final QueryResultPage<MessageDto> result = this.messageService.find(pageIndex, pageSize, userKey, dateFrom, dateTo, read);
+        final PageResultDto<MessageDto> result = this.messageService.find(pageIndex, pageSize, userKey, dateFrom, dateTo, read);
 
         return RestResponse.result(result);
     }

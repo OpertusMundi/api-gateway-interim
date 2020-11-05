@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.message.domain.NotificationEntity;
 import eu.opertusmundi.message.model.NotificationCommandDto;
 import eu.opertusmundi.message.model.NotificationDto;
@@ -23,14 +23,14 @@ public class DefaultNotificationService implements NotificationService {
     private JpaNotificationRepository notificationRepository;
 
     @Override
-    public QueryResultPage<NotificationDto> find(
+    public PageResultDto<NotificationDto> find(
         Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read
     ) {
         final PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, Sort.by(Direction.ASC, "sendAt"));
 
         final Page<NotificationEntity> page = this.notificationRepository.findAll(userKey, dateFrom, dateTo, read, pageRequest);
 
-        final QueryResultPage<NotificationDto> result = QueryResultPage.from(page, NotificationEntity::toDto);
+        final PageResultDto<NotificationDto> result = PageResultDto.from(page, NotificationEntity::toDto);
 
         return result;
     }

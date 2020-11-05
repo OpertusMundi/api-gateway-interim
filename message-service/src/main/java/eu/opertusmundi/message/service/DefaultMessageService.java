@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import eu.opertusmundi.common.model.QueryResultPage;
+import eu.opertusmundi.common.model.PageResultDto;
 import eu.opertusmundi.message.domain.MessageEntity;
 import eu.opertusmundi.message.model.MessageCommandDto;
 import eu.opertusmundi.message.model.MessageDto;
@@ -23,14 +23,14 @@ public class DefaultMessageService implements MessageService {
     private JpaMessageRepository messageRepository;
 
     @Override
-    public QueryResultPage<MessageDto> find(
+    public PageResultDto<MessageDto> find(
         Integer pageIndex, Integer pageSize, UUID userKey, ZonedDateTime dateFrom, ZonedDateTime dateTo, Boolean read
     ) {
         final PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, Sort.by(Direction.DESC, "sendAt"));
 
         final Page<MessageEntity> page = this.messageRepository.findAll(userKey, dateFrom, dateTo, read, pageRequest);
 
-        final QueryResultPage<MessageDto> result = QueryResultPage.from(page, MessageEntity::toDto);
+        final PageResultDto<MessageDto> result = PageResultDto.from(page, MessageEntity::toDto);
 
         return result;
     }
