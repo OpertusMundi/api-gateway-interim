@@ -70,6 +70,7 @@
 		<module>common</module>
 		<module>cli</module>
 		<module>api-gateway</module>
+        <module>helpdesk-app</module>
 		
 		<module>bpm-server</module>
 		<module>bpm-worker</module>
