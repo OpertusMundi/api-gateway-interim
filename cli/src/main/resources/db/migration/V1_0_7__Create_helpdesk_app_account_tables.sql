@@ -20,7 +20,6 @@ CREATE TABLE "admin".account
 (
   id                    integer                     NOT NULL  DEFAULT nextval('admin.account_id_seq'::regclass),
   "key"                 uuid                        NOT NULL,  
-  "username"            character varying(120)      NOT NULL,
   "active"              boolean                     NOT NULL,
   "blocked"             boolean                     NOT NULL,
   "email"               character varying(120)      NOT NULL,
@@ -38,12 +37,11 @@ CREATE TABLE "admin".account
   "mobile"              character varying(15),
   CONSTRAINT pk_account PRIMARY KEY (id),
   CONSTRAINT uq_account_key UNIQUE ("key"),
-  CONSTRAINT uq_account_email UNIQUE ("email"),
-  CONSTRAINT uq_account_username UNIQUE ("username")
+  CONSTRAINT uq_account_email UNIQUE ("email")
 );
 
 CREATE INDEX idx_admin_account_key ON "admin".account USING btree ("key");
-CREATE INDEX idx_admin_account_username ON "admin".account USING btree ("username");
+CREATE INDEX idx_admin_account_email ON "admin".account USING btree ("email");
 
 --
 -- Role

@@ -19,32 +19,30 @@ CREATE SEQUENCE web.account_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 
 CREATE TABLE web.account
 (
-  id                    integer                     NOT NULL  DEFAULT nextval('web.account_id_seq'::regclass),
-  "key"                 uuid                        NOT NULL,  
-  "username"            character varying(120)      NOT NULL,
-  "active"              boolean                     NOT NULL,
-  "blocked"             boolean                     NOT NULL,
-  "email"               character varying(120)      NOT NULL,
-  "email_verified"      boolean                     NOT NULL,
-  "email_verified_at"   timestamp                   NULL,
-  "firstname"           character varying(64)       NULL,
-  "lastname"            character varying(64)       NULL,
-  "locale"              character varying(2)        NULL,
-  "password"            character varying(64)       NULL,
-  "registered_at"       timestamp                   NOT NULL  DEFAULT now(),
-  "activation_status"   character varying(20)       NOT NULL  DEFAULT ('PENDING'),
-  "activation_at"       timestamp                   NULL,
-  "idp_name"            character varying(20)       NULL,
-  "idp_user_alias"      character varying(120)      NULL,
-  "idp_user_image"      text                        NULL,
+  "id"                           integer                     NOT NULL  DEFAULT nextval('web.account_id_seq'::regclass),
+  "key"                          uuid                        NOT NULL,  
+  "active"                       boolean                     NOT NULL,
+  "blocked"                      boolean                     NOT NULL,
+  "email"                        character varying(120)      NOT NULL,
+  "email_verified"               boolean                     NOT NULL,
+  "email_verified_at"            timestamp,
+  "firstname"                    character varying(64),
+  "lastname"                     character varying(64),
+  "locale"                       character varying(2),
+  "password"                     character varying(64),
+  "registered_at"                timestamp                   NOT NULL  DEFAULT now(),
+  "activation_status"            character varying(20)       NOT NULL  DEFAULT ('PENDING'),
+  "activation_at"                timestamp,
+  "idp_name"                     character varying(20),
+  "terms_accepted"               boolean                     NOT NULL,
+  "terms_accepted_at"            timestamp,
   CONSTRAINT pk_account PRIMARY KEY (id),
-  CONSTRAINT uq_account_email UNIQUE ("email"),
-  CONSTRAINT uq_account_username UNIQUE ("username"),
-  CONSTRAINT uq_account_key UNIQUE ("key")
+  CONSTRAINT uq_account_key UNIQUE ("key"),
+  CONSTRAINT uq_account_email UNIQUE ("email")
 );
 
-CREATE INDEX idx_account_key ON web.account USING btree ("key");
-CREATE INDEX idx_account_username ON web.account USING btree ("username");
+CREATE INDEX idx_account_key ON "web".account USING btree ("key");
+CREATE INDEX idx_account_email ON "web".account USING btree ("email");
 
 --
 -- Role
@@ -54,7 +52,7 @@ CREATE SEQUENCE web.account_role_id_seq INCREMENT 1 MINVALUE 1 START 1 CACHE 1;
 
 CREATE TABLE web.account_role
 (
-  id             integer                   NOT NULL  DEFAULT nextval('web.account_role_id_seq'::regclass),
+  "id"           integer                   NOT NULL  DEFAULT nextval('web.account_role_id_seq'::regclass),
   "role"         character varying(64)     NOT NULL,
   "account"      integer                   NOT NULL,
   "granted_at"   timestamp                 NOT NULL  DEFAULT now(),
@@ -65,7 +63,7 @@ CREATE TABLE web.account_role
       ON UPDATE NO ACTION ON DELETE CASCADE,
   CONSTRAINT fk_account_role_granted_by FOREIGN KEY ("granted_by")
       REFERENCES web.account (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE NO ACTION ON DELETE SET NULL,
   CONSTRAINT uq_account_role UNIQUE ("account", "role")
 ); 
 
