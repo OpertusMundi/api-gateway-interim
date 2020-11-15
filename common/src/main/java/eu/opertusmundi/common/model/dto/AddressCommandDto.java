@@ -1,20 +1,14 @@
 package eu.opertusmundi.common.model.dto;
 
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressCommandDto extends AddressBaseDto {
+public class AddressCommandDto extends AddressBaseDto implements Serializable {
 
-    @JsonIgnore
-    private Integer id;
-
-    @JsonIgnore
-    private UUID key;
+    private static final long serialVersionUID = 1L;
 
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,9 +16,9 @@ public class AccountBaseDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
-    protected Integer id;
+    protected boolean active;
 
-    @Schema(description = "User locale", defaultValue = "en")
-    protected String locale;
+    @JsonIgnore
+    protected boolean blocked;
 
 }
