@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -31,7 +30,6 @@ public class JsonMapperConfiguration {
 	}
 
 	private void configureModules(ObjectMapper objectMapper) {
-		objectMapper.registerModule(new JtsModule());
 		objectMapper.registerModule(new JavaTimeModule());
 	}
 
