@@ -6,7 +6,7 @@
 
 Copy configuration examples from `config-examples/` into `/src/main/resources/config/`, and edit to adjust to your needs.
 
-`cp config-example/* /src/main/resources/config/`
+`cp -r config-example/* src/main/resources/`
 
 Build the project:
 
