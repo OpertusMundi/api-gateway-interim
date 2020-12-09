@@ -26,7 +26,7 @@ CREATE TABLE "file".asset_file_type
 --
 
 insert into "file".asset_file_type ("category", "format", "extensions", "allow_bundle", "bundle_extensions", "enabled", "notes") values
-('VECTOR', 'ESRI shapefile', 'shp',     true,  null, true, 'Must be accompanied with at least .dbf and .shx; optional other files like .prj may also be part of a shapefile'),
+('VECTOR', 'ESRI Shapefile', 'shp',     true,  null, true, 'Must be accompanied with at least .dbf and .shx; optional other files like .prj may also be part of a shapefile'),
 ('VECTOR', 'CSV',            'csv,txt', false, null, true,  'Comma separated values; different separators may be used'),
 ('VECTOR', 'GeoJSON',        'geojson', false, null, true,  null),
 ('VECTOR', 'GML',            'gml',     false, null, true,  'Geography Markup Language'),
