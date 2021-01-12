@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1ueqgfk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.5.0">
+  <bpmn:process id="consumer-registration" name="Consumer Registration" isExecutable="true" camunda:versionTag="1.0.0">
+    <bpmn:startEvent id="event-start">
+      <bpmn:outgoing>SequenceFlow_158b1lv</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0rfddlv">
+      <bpmn:incoming>SequenceFlow_1yj76t1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0j0z1c8</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="update_task" name="Update" camunda:asyncBefore="true" camunda:type="external" camunda:topic="updateConsumer">
+      <bpmn:incoming>SequenceFlow_0hr87d8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0j0z1c8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1yj76t1" sourceRef="create_task" targetRef="Event_0rfddlv" />
+    <bpmn:serviceTask id="create_task" name="Create" camunda:type="external" camunda:topic="createConsumer">
+      <bpmn:incoming>SequenceFlow_12jrof4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1yj76t1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_06nstt7">
+      <bpmn:incoming>SequenceFlow_158b1lv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hr87d8</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_12jrof4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0hr87d8" name="Update" sourceRef="ExclusiveGateway_06nstt7" targetRef="update_task">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isUpdate==true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_12jrof4" name="Create" sourceRef="ExclusiveGateway_06nstt7" targetRef="create_task">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isUpdate==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_158b1lv" sourceRef="event-start" targetRef="ExclusiveGateway_06nstt7" />
+    <bpmn:sequenceFlow id="SequenceFlow_0j0z1c8" sourceRef="update_task" targetRef="Event_0rfddlv" />
+    <bpmn:textAnnotation id="TextAnnotation_18tia4y">
+      <bpmn:text>Create or update provider</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1acortf" sourceRef="ExclusiveGateway_06nstt7" targetRef="TextAnnotation_18tia4y" />
+  </bpmn:process>
+  <bpmn:message id="Message_02wipga" name="provider-publish-asset-user-acceptance-message" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="consumer-registration">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="event-start">
+        <dc:Bounds x="152" y="289" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rfddlv_di" bpmnElement="Event_0rfddlv">
+        <dc:Bounds x="842" y="289" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p3kmm0_di" bpmnElement="update_task">
+        <dc:Bounds x="460" y="267" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1yj76t1_di" bpmnElement="SequenceFlow_1yj76t1">
+        <di:waypoint x="560" y="120" />
+        <di:waypoint x="701" y="120" />
+        <di:waypoint x="701" y="307" />
+        <di:waypoint x="842" y="307" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_12efk3s_di" bpmnElement="create_task">
+        <dc:Bounds x="460" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_06nstt7_di" bpmnElement="ExclusiveGateway_06nstt7" isMarkerVisible="true">
+        <dc:Bounds x="315" y="282" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hr87d8_di" bpmnElement="SequenceFlow_0hr87d8">
+        <di:waypoint x="365" y="307" />
+        <di:waypoint x="460" y="307" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="392" y="283" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12jrof4_di" bpmnElement="SequenceFlow_12jrof4">
+        <di:waypoint x="340" y="282" />
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="460" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="394" y="102" width="33" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_158b1lv_di" bpmnElement="SequenceFlow_158b1lv">
+        <di:waypoint x="188" y="307" />
+        <di:waypoint x="315" y="307" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_18tia4y_di" bpmnElement="TextAnnotation_18tia4y">
+        <dc:Bounds x="360" y="390" width="100" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1acortf_di" bpmnElement="Association_1acortf">
+        <di:waypoint x="350" y="322" />
+        <di:waypoint x="396" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0j0z1c8_di" bpmnElement="SequenceFlow_0j0z1c8">
+        <di:waypoint x="560" y="307" />
+        <di:waypoint x="842" y="307" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
