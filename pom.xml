@@ -12,7 +12,7 @@
 	<packaging>pom</packaging>
 
 	<name>[opertus-mundi] Parent</name>
-	<url>https://hellenicdataservice.gr/</url>
+	<url>https://www.opertusmundi.eu/</url>
 
 	<properties>
 		<!-- Project properties -->
